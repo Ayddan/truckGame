@@ -1,14 +1,11 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
-public class truckControl : MonoBehaviour
+public class TruckView: MonoBehaviour
 {
     [Header("Car Settings")]
     public float acceleration = 5f;      // Acceleration force
     public float maxSpeed = 10f;         // Maximum speed
     public float steering = 2f;          // Steering intensity
-    //public float drag = 0.99f;           // Simulated friction
     public float loadingSpeed = .2f;
     public GameObject greenLight;
 
@@ -17,17 +14,17 @@ public class truckControl : MonoBehaviour
     private float moveInput;
     private float steerInput;
 
-    private bool isLoading = false;
-    private bool loaded = false;
-    private bool isSelected = false;
+    private TruckController truckController;
 
     void Start()
     {
-        //rb.linearDamping = drag;  // Apply friction
+        truckController = new TruckController(this);
+        GameManager.Instance.NewTruck(truckController);
     }
 
     void Update()
     {
+
         // Get player input
         moveInput = Input.GetAxis("Vertical");    // W/S or Up/Down for throttle
         steerInput = Input.GetAxis("Horizontal"); // A/D or Left/Right for turning
@@ -35,22 +32,24 @@ public class truckControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(isSelected)
+        if (truckController.IsTruckSelected())
         {
             greenLight.SetActive(true);
-        } else
+        }
+        else
         {
             greenLight.SetActive(false);
             return;
         }
-        if(isLoading) return;
+        if (truckController.IsLoading()) return;
         MoveCar();
         SteerCar();
     }
 
     private void OnMouseDown()
     {
-        isSelected = !isSelected;
+        GameManager.Instance.DeselectActiveTruck();
+        truckController.ToggleSelectTruck();
     }
 
     void MoveCar()
@@ -83,14 +82,13 @@ public class truckControl : MonoBehaviour
 
     public void EndLoading()
     {
-        isLoading = false;
-        loaded = !loaded;
-        animator.SetBool("Loaded", loaded);
+        truckController.ToggleTruckLoading();
+        truckController.ToggleLoadedTruck();
+        animator.SetBool("Loaded", truckController.IsTruckLoaded());
     }
     public void StartLoading()
     {
-        isLoading = true;
+        truckController.ToggleTruckLoading();
         animator.SetTrigger("Load");
     }
-
 }

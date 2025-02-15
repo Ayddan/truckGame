@@ -3,21 +3,19 @@ using UnityEngine;
 
 public class LoadingSpotView : MonoBehaviour
 {
-    public int id = 0;
     public GameObject loadingLight;
-
-    public LoadingSpotData spotData;
+    public LoadingSpotController loadingSpotsController;
 
     private void Start()
     {
-        spotData = new LoadingSpotData();
+        loadingSpotsController = new LoadingSpotController(this);
+        GameManager.Instance.NewLoadingSpot(loadingSpotsController);
     }
 
     // Update is called once per frame
     void Update()
     {
-        spotData = GameManager.Instance.loadingSpotsController.GetLoadingSpotData(id);
-        if (spotData.isLoading) { 
+        if (loadingSpotsController.IsLoading()) { 
             loadingLight.SetActive(true);
         } else
         {
@@ -28,12 +26,10 @@ public class LoadingSpotView : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("truck") && !spotData.isLoading)
+        if(collision.gameObject.CompareTag("truck") && !loadingSpotsController.IsLoading())
         {
-            spotData.isLoading = true;
-            GameManager.Instance.loadingSpotsController.UpdateLoadingSpot(spotData);
-            //TODO : Créer un mvc pour le truck et l'utiliser ici
-            collision.gameObject.GetComponent<truckControl>().StartLoading();
+            loadingSpotsController.ToggleIsLoading();
+            collision.gameObject.GetComponent<TruckView>().StartLoading();
         }
     }
 
@@ -41,9 +37,7 @@ public class LoadingSpotView : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("truck"))
         {
-            spotData.isLoading = false;
-            //TODO : Créer un mvc pour le truck et l'utiliser ici
-            GameManager.Instance.loadingSpotsController.UpdateLoadingSpot(spotData);
+            loadingSpotsController.ToggleIsLoading();
         }
     }
 

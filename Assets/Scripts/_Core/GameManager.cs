@@ -1,18 +1,21 @@
-﻿using System.Collections;
-using Assets.Scripts.Views;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
 
     public PlayerController playerController;
-    public LoadingSpotsController loadingSpotsController;
+    public List<LoadingSpotController> loadingSpotsController;
+    public List<TruckController> trucksControllers;
 
     public static GameManager Instance { get; private set; }
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (Instance == null){
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else Destroy(gameObject);
     }
 
@@ -27,11 +30,32 @@ public class GameManager : MonoBehaviour
         playerController = new PlayerController(playerData, playerView);
 
         // Loading spots inst
-        LoadingSpotsData loadingSpotsData = new LoadingSpotsData();
-        LoadingSpotsView loadingSpotsView = FindFirstObjectByType<LoadingSpotsView>();
+        loadingSpotsController = new List<LoadingSpotController>();
 
-        loadingSpotsController = new LoadingSpotsController(loadingSpotsData, loadingSpotsView);
+        // Trucks list inst
+        trucksControllers = new List<TruckController>();
 
         Debug.Log("GameManager instantiated !");
     }
+
+    public void NewTruck(TruckController controller)
+    {
+        trucksControllers.Add(controller);
+    }
+
+    public void NewLoadingSpot(LoadingSpotController loadingSpotController)
+    {
+        loadingSpotsController.Add(loadingSpotController);
+    }
+
+    public void DeselectActiveTruck()
+    {
+        TruckController truckController = trucksControllers.Find(controller =>  controller.IsTruckSelected());
+        if (truckController != null)
+        {
+            truckController.ToggleSelectTruck();
+        }
+    }
+
+
 }
