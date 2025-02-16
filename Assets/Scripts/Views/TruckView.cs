@@ -5,7 +5,8 @@ public class TruckView: MonoBehaviour
     [Header("Car Settings")]
     public CargoType cargoType;
     public float acceleration = 5f;      // Acceleration force
-    public float maxSpeed = 10f;         // Maximum speed
+    public float maxSpeed = 10f;
+    public float maxBackwardSpeed = 5f;
     public float steering = 2f;          // Steering intensity
     public float loadingSpeed = .2f;
     public GameObject greenLight;
@@ -32,6 +33,14 @@ public class TruckView: MonoBehaviour
 
     void FixedUpdate()
     {
+        if(truckController.IsTruckLoaded())
+        {
+            animator.SetBool("Loaded", truckController.IsTruckLoaded());
+        }
+        if(!truckController.IsReady())
+        {
+            GoForward();
+        }
         if (truckController.IsTruckSelected())
         {
             greenLight.SetActive(true);
@@ -59,11 +68,33 @@ public class TruckView: MonoBehaviour
             // Apply force in the forward direction
             rb.AddForce(transform.up * moveInput * acceleration, ForceMode2D.Force);
 
-            // Limit speed
-            if (rb.linearVelocity.magnitude > maxSpeed)
+            // Determine if the object is moving forward or backward
+            float dot = Vector2.Dot(rb.linearVelocity, transform.up);
+
+            // Define different speed limits for forward and backward movement
+            float forwardMaxSpeed = maxSpeed;       // Max speed when moving forward
+            float backwardMaxSpeed = maxSpeed * 0.2f; // Example: 50% speed when moving backward
+
+            // Choose the correct max speed based on movement direction
+            float currentMaxSpeed = (dot >= 0) ? forwardMaxSpeed : backwardMaxSpeed;
+
+            // Limit speed if it exceeds the selected max speed
+            if (rb.linearVelocity.magnitude > currentMaxSpeed)
             {
-                rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+                rb.linearVelocity = rb.linearVelocity.normalized * currentMaxSpeed;
             }
+        }
+    }
+
+    void GoForward()
+    {
+        // Apply force in the forward direction
+        rb.AddForce(transform.up * 10.0f, ForceMode2D.Force);
+
+        // Limit speed
+        if (rb.linearVelocity.magnitude > maxSpeed)
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
         }
     }
 
@@ -84,7 +115,7 @@ public class TruckView: MonoBehaviour
     {
         truckController.ToggleTruckLoading();
         truckController.ToggleLoadedTruck();
-        animator.SetBool("Loaded", truckController.IsTruckLoaded());
+        truckController.SetJobDone(true);
     }
     public void StartLoading()
     {

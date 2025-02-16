@@ -11,15 +11,20 @@ public class PlayerController
     {
         playerData = data;
         playerView = view;
-
-        // Set start value
-        playerView.UpdateScore(playerData.score);
     }
 
     public void ChangePlayerScore(int scoreChange)
     {
         playerData.score += scoreChange;
-        playerView.UpdateScore(playerData.score);
+        if (playerData.score < 0)
+        {
+            playerData.score = 0;
+        }
+    }
+
+    public int GetScore()
+    {
+        return playerData.score;
     }
 
 }

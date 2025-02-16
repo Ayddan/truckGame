@@ -24,6 +24,16 @@ public class TruckController
         return this.truckData.loaded;
     }
 
+    public bool IsReady()
+    {
+        return this.truckData.isReady;
+    }
+
+    public void SetIsReady(bool value)
+    {
+        this.truckData.isReady = value;
+    }
+
     public CargoType GetType()
     {
         return truckData.type;
@@ -34,6 +44,11 @@ public class TruckController
         this.truckData.isSelected = !this.truckData.isSelected;
     }
 
+    public void SetTruckLoaded()
+    {
+        this.truckData.loaded = true;
+    }
+
     public void ToggleLoadedTruck()
     {
         this.truckData.loaded = !this.truckData.loaded;
@@ -42,5 +57,15 @@ public class TruckController
     public void ToggleTruckLoading()
     {
         this.truckData.isLoading = !this.truckData.isLoading;
+    }
+
+    public bool IsJobDone()
+    {
+        return this.truckData.jobDone;
+    }
+
+    public void SetJobDone(bool value)
+    {
+        this.truckData.jobDone = value;
     }
 }
