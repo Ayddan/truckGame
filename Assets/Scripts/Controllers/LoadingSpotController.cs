@@ -3,9 +3,9 @@
     LoadingSpotData loadingSpotData;
     LoadingSpotView loadingSpotView;
 
-    public LoadingSpotController(LoadingSpotView loadingSpotView)
+    public LoadingSpotController(LoadingSpotView loadingSpotView, CargoType type)
     {
-        this.loadingSpotData = new LoadingSpotData();
+        this.loadingSpotData = new LoadingSpotData(type);
         this.loadingSpotView = loadingSpotView;
     }
 
@@ -14,7 +14,7 @@
         return loadingSpotData.isLoading;
     }
 
-    public string GetType()
+    public CargoType GetType()
     {
         return loadingSpotData.type;
     }

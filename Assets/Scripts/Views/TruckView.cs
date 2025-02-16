@@ -3,6 +3,7 @@ using UnityEngine;
 public class TruckView: MonoBehaviour
 {
     [Header("Car Settings")]
+    public CargoType cargoType;
     public float acceleration = 5f;      // Acceleration force
     public float maxSpeed = 10f;         // Maximum speed
     public float steering = 2f;          // Steering intensity
@@ -14,17 +15,16 @@ public class TruckView: MonoBehaviour
     private float moveInput;
     private float steerInput;
 
-    private TruckController truckController;
+    public TruckController truckController;
 
     void Start()
     {
-        truckController = new TruckController(this);
+        truckController = new TruckController(this, cargoType);
         GameManager.Instance.NewTruck(truckController);
     }
 
     void Update()
     {
-
         // Get player input
         moveInput = Input.GetAxis("Vertical");    // W/S or Up/Down for throttle
         steerInput = Input.GetAxis("Horizontal"); // A/D or Left/Right for turning

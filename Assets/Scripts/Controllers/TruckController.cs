@@ -3,10 +3,10 @@ public class TruckController
     private TruckData truckData;
     private TruckView truckView;
     
-    public TruckController(TruckView truckView)
+    public TruckController(TruckView truckView, CargoType cargoType)
     {
         this.truckView = truckView;
-        this.truckData = new TruckData();
+        this.truckData = new TruckData(cargoType);
     }
 
     public bool IsTruckSelected()
@@ -22,6 +22,11 @@ public class TruckController
     public bool IsTruckLoaded()
     {
         return this.truckData.loaded;
+    }
+
+    public CargoType GetType()
+    {
+        return truckData.type;
     }
 
     public void ToggleSelectTruck()
