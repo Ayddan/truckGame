@@ -1,8 +1,18 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+
+    public List<AudioClip> clickSounds = new List<AudioClip>();
+    public InputActionReference leftClick;
+    public AudioSource clickSource;
+
+    public AudioClip keyboardSound;
+    public InputActionReference keyboardTap;
+    public AudioSource keyboardSource;
 
     public PlayerController playerController;
     public List<LoadingSpotController> loadingSpotsController;
@@ -38,6 +48,21 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameManager instantiated !");
     }
 
+    private void OnEnable()
+    {
+        if (leftClick != null)
+        {
+            leftClick.action.performed += OnLeftClick;
+            leftClick.action.Enable();
+        }
+        //if (keyboardTap != null)
+        //{
+        //    keyboardTap.action.performed += OnKeyboardTap;
+        //    keyboardTap.action.Enable();
+        //}
+        
+    }
+
     public void NewTruck(TruckController controller)
     {
         trucksControllers.Add(controller);
@@ -57,5 +82,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void OnLeftClick(InputAction.CallbackContext context)
+    {
+        AudioSource audioSource = GetComponent<AudioSource>();
 
+        clickSource.clip = clickSounds[Random.Range(0,2)];
+        clickSource.Play();
+    }
+
+
+    // Maybe later
+    //private void OnKeyboardTap(InputAction.CallbackContext context)
+    //{
+    //    keyboardSource.clip = keyboardSound;
+    //    keyboardSource.Play();
+    //}
 }
