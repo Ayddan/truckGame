@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ExitView : MonoBehaviour
 {
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("truck"))
@@ -18,14 +19,10 @@ public class ExitView : MonoBehaviour
             TruckView truckView = collision.gameObject.GetComponent<TruckView>();
             if (truckView.truckController.IsJobDone())
             {
-                Destroy(collision.gameObject);
-                GameManager.Instance.playerController.ChangePlayerScore(50);
+                GameManager.Instance.playerController.ChangePlayerScore(5);
+                GameManager.Instance.playerController.AddTime(GameManager.Instance.bonusTime);
             }
-            else
-            {
-                Destroy(collision.gameObject);
-                GameManager.Instance.playerController.ChangePlayerScore(-50);
-            }
+            Destroy(collision.gameObject);
         }
     }
 }

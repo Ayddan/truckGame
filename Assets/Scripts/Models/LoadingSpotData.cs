@@ -3,12 +3,12 @@
 public class LoadingSpotData
 {
     public string id;
-    public CargoType type;
+    public LoadSpotType type;
     public bool isLoading;
 
-    public LoadingSpotData(CargoType cargoType)
+    public LoadingSpotData(LoadSpotType cargoType, LoadSpotType loadSpotType)
     {
         id = System.Guid.NewGuid().ToString(); // Generates a unique identifier
-        type = cargoType;
+        type = loadSpotType;
     }
 }

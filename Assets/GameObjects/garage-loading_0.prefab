@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75327aa9ddcd7ef4abfabb9e77929398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cargoType: 0
+  spotType: 0
   loadingLight: {fileID: 3792012901648400895}
   greenLight: {fileID: 7703772319216166455}
   redLight: {fileID: 4335835253915005034}
@@ -566,7 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75327aa9ddcd7ef4abfabb9e77929398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cargoType: 0
+  spotType: 1
   loadingLight: {fileID: 4444193256939446606}
   greenLight: {fileID: 4096233455010764822}
   redLight: {fileID: 4184053638624190507}
@@ -1785,7 +1785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75327aa9ddcd7ef4abfabb9e77929398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cargoType: 0
+  spotType: 1
   loadingLight: {fileID: 8401295341365672251}
   greenLight: {fileID: 4914189956702347794}
   redLight: {fileID: 1972878881608910465}
@@ -1884,7 +1884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75327aa9ddcd7ef4abfabb9e77929398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cargoType: 0
+  spotType: 0
   loadingLight: {fileID: 8075718659768376079}
   greenLight: {fileID: 5658581137053759829}
   redLight: {fileID: 8063728696104138477}

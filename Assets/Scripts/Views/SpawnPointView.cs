@@ -3,7 +3,7 @@ using UnityEngine;
 public class SpawnPointView : MonoBehaviour
 {
     public GameObject truck; // Assign this in the Unity Inspector
-    public float spawnInterval = 10f; // Time in seconds
+    public float spawnInterval = 1f; // Time in seconds
 
     void Start()
     {
@@ -13,7 +13,7 @@ public class SpawnPointView : MonoBehaviour
 
     void SpawnPrefab()
     {
-        if (truck != null)
+        if (truck != null && !GameManager.Instance.stopLineController.IsOccupied())
         {
             //CargoType randomCargo = GetRandomCargoType();
             //truck.GetComponent<TruckView>().cargoType = randomCargo
@@ -23,11 +23,5 @@ public class SpawnPointView : MonoBehaviour
         {
             Debug.LogWarning("Prefab is not assigned in SpawnPointView!");
         }
-    }
-
-    CargoType GetRandomCargoType()
-    {
-        CargoType[] values = (CargoType[])System.Enum.GetValues(typeof(CargoType));
-        return values[Random.Range(0, values.Length)];
     }
 }

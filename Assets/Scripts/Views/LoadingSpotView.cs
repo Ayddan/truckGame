@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LoadingSpotView : MonoBehaviour
 {
-    public CargoType cargoType;
+    public LoadSpotType spotType;
     public GameObject loadingLight;
     public GameObject greenLight;
     public GameObject redLight;
@@ -11,7 +11,7 @@ public class LoadingSpotView : MonoBehaviour
 
     private void Start()
     {
-        loadingSpotsController = new LoadingSpotController(this, cargoType);
+        loadingSpotsController = new LoadingSpotController(this, spotType);
         GameManager.Instance.NewLoadingSpot(loadingSpotsController);
     }
 
@@ -43,7 +43,7 @@ public class LoadingSpotView : MonoBehaviour
         if (collision.gameObject.CompareTag("truck") && !loadingSpotsController.IsLoading())
         {
             TruckView truckView = collision.gameObject.GetComponent<TruckView>();
-            if (truckView.truckController.GetType() == loadingSpotsController.GetType())
+            if (truckView.truckController.GetLoadType() == loadingSpotsController.GetType() && !truckView.truckController.IsJobDone())
             {
                 loadingSpotsController.ToggleIsLoading();
                 truckView.StartLoading();

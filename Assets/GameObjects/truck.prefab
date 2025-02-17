@@ -1647,10 +1647,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7307128546110350673}
+  - component: {fileID: 2392485296722116861}
   - component: {fileID: 292639014366034143}
   - component: {fileID: 502683767247803772}
   - component: {fileID: 2712842293221706115}
-  - component: {fileID: 2392485296722116861}
   m_Layer: 0
   m_Name: truck
   m_TagString: truck
@@ -1674,6 +1674,25 @@ Transform:
   - {fileID: 2183045916067682545}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2392485296722116861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8629383512927730990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e30aedb3af23734280ca34a6a4c18bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 50
+  maxSpeed: 5
+  steering: 10
+  loadingSpeed: 0.2
+  greenLight: {fileID: 6474730777481986504}
+  rb: {fileID: 292639014366034143}
+  animator: {fileID: 2712842293221706115}
 --- !u!50 &292639014366034143
 Rigidbody2D:
   serializedVersion: 5
@@ -1769,26 +1788,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2392485296722116861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8629383512927730990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e30aedb3af23734280ca34a6a4c18bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cargoType: 0
-  acceleration: 100
-  maxSpeed: 5
-  steering: 10
-  loadingSpeed: 0.2
-  greenLight: {fileID: 6474730777481986504}
-  rb: {fileID: 292639014366034143}
-  animator: {fileID: 2712842293221706115}
 --- !u!1 &8783860490494228679
 GameObject:
   m_ObjectHideFlags: 0

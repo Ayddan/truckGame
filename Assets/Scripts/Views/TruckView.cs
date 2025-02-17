@@ -3,10 +3,8 @@ using UnityEngine;
 public class TruckView: MonoBehaviour
 {
     [Header("Car Settings")]
-    public CargoType cargoType;
     public float acceleration = 5f;      // Acceleration force
     public float maxSpeed = 10f;
-    public float maxBackwardSpeed = 5f;
     public float steering = 2f;          // Steering intensity
     public float loadingSpeed = .2f;
     public GameObject greenLight;
@@ -20,7 +18,7 @@ public class TruckView: MonoBehaviour
 
     void Start()
     {
-        truckController = new TruckController(this, cargoType);
+        truckController = new TruckController(this);
         GameManager.Instance.NewTruck(truckController);
     }
 
@@ -73,7 +71,7 @@ public class TruckView: MonoBehaviour
 
             // Define different speed limits for forward and backward movement
             float forwardMaxSpeed = maxSpeed;       // Max speed when moving forward
-            float backwardMaxSpeed = maxSpeed * 0.2f; // Example: 50% speed when moving backward
+            float backwardMaxSpeed = maxSpeed * 0.5f; // Example: 50% speed when moving backward
 
             // Choose the correct max speed based on movement direction
             float currentMaxSpeed = (dot >= 0) ? forwardMaxSpeed : backwardMaxSpeed;
